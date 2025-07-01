@@ -1,4 +1,4 @@
-package com.binarybrains;
+package com.binarybrains.external.rest.controller;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
