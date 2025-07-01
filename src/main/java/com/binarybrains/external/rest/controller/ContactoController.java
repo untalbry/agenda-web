@@ -42,7 +42,7 @@ public class ContactoController {
     }
     @DELETE
     @Path("{id}")
-    @APIResponse(responseCode = "200", name = "Success", description = "Contact updated successfully")
+    @APIResponse(responseCode = "200", name = "Success", description = "Contact deleted successfully")
     @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
     @APIResponse(responseCode = "404", name = "Not found", description = "Contact not found")
     public Response delete(@PathParam("id") Integer idContact){

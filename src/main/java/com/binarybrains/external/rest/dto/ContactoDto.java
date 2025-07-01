@@ -18,7 +18,12 @@ public class ContactoDto {
     @NotNull(message = "User ID cannot be null.")
     @Schema(description = "Identifier of the user associated with this contact.")
     private Integer idUser;
-
+    @Schema(description = "Contact name")
+    private String name;
+    @Schema(description = "Contact last name")
+    private String lastName;
+    @Schema(description = "Contact second last name")
+    private String secondLastName;
     @NotEmpty(message = "Nickname cannot be empty.")
     @Size(max = 100, message = "Nickname cannot exceed 100 characters.")
     @Schema(description = "Nickname or alias for the contact.")
@@ -27,6 +32,9 @@ public class ContactoDto {
     public Contacto toEntity(){
         return Contacto.builder()
                 .idUser(idUser)
+                .name(name)
+                .lastName(lastName)
+                .secondLastName(secondLastName)
                 .nickname(nickname)
                 .build();
     }

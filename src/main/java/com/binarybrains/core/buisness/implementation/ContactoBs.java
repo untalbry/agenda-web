@@ -26,18 +26,8 @@ public class ContactoBs implements ContactoService {
         if(contactExists.isEmpty()){
             result = Either.left(ErrorCode.RN003);
         }else{
-            var userExists = userRepository.getUserById(contacto.getIdUser());
-            if(userExists.isEmpty()){
-                result = Either.left(ErrorCode.RN004);
-            }else{
-                User user = userExists.get().getFirst();
-                contacto.setIdUser(user.getId());
-                contacto.setName(user.getName());
-                contacto.setLastName(user.getLastName());
-                contacto.setSecondLastName(user.getSecondLastName());
-                var contactCreated = contactoRepository.create(contacto);
-                result = contactCreated.<Either<ErrorCode, Contacto>>map(Either::right).orElseGet(() -> Either.left(ErrorCode.RN006));
-            }
+            var contactCreated = contactoRepository.create(contacto);
+            result = contactCreated.<Either<ErrorCode, Contacto>>map(Either::right).orElseGet(() -> Either.left(ErrorCode.RN006));
         }
         return result;
     }
