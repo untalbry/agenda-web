@@ -39,4 +39,9 @@ public class MedioContactoDao implements MedioContactoRepository {
         medioContactoJpaRepository.delete(MedioContactoJpa.fromEntity(medioContacto));
     }
 
+    @Override
+    public Optional<MedioContacto> update(MedioContacto medioContacto) {
+        return Optional.of( medioContactoJpaRepository.saveAndFlush(MedioContactoJpa.fromEntity(medioContacto)).toEntity());
+    }
+
 }

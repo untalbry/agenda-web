@@ -8,5 +8,5 @@ public interface MedioContactoService {
     Either<ErrorCode, MedioContacto> save(MedioContacto medioContacto);
     Either<ErrorCode, MedioContacto> getById(Integer id);
     Either<ErrorCode, Boolean> delete(Integer id);
-
+    Either<ErrorCode, MedioContacto> update(MedioContacto medioContacto);
 }

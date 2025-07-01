@@ -60,4 +60,17 @@ public class MedioContactoBs implements MedioContactoService {
         }
         return result;
     }
+
+    @Override
+    public Either<ErrorCode, MedioContacto> update(MedioContacto medioContacto) {
+        Either<ErrorCode, MedioContacto> result;
+        var medioContactoExist = medioContactoRepository.findById(medioContacto.getId());
+        if(medioContactoExist.isEmpty()){
+            result = Either.left(ErrorCode.RN004);
+        }else{
+            var medioContactoUpdated = medioContactoRepository.update(medioContacto);
+            result = medioContactoUpdated.<Either<ErrorCode, MedioContacto>>map(Either::right).orElseGet(() -> Either.left(ErrorCode.RN006));
+        }
+        return result;
+    }
 }

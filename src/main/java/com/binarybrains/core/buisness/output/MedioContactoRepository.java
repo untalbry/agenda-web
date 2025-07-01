@@ -8,5 +8,6 @@ public interface MedioContactoRepository {
     Optional<MedioContacto> create(MedioContacto medioContacto);
     Optional<MedioContacto> findById(Integer id);
     void remove(MedioContacto medioContacto);
+    Optional<MedioContacto> update(MedioContacto medioContacto);
 
 }

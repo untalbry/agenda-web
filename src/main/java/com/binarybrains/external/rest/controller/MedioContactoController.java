@@ -2,6 +2,7 @@ package com.binarybrains.external.rest.controller;
 
 import com.binarybrains.core.buisness.input.MedioContactoService;
 import com.binarybrains.external.rest.dto.MedioContactoDto;
+import com.binarybrains.external.rest.dto.MedioContactoUpdateDto;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -28,9 +29,8 @@ public class MedioContactoController {
     @APIResponse(responseCode = "200", name = "Success", description = "Contact medium updated successfully")
     @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
     @APIResponse(responseCode = "404", name = "Not found", description = "Contact medium not found")
-    public Response update(@Valid MedioContactoDto medioContactoDto){
-        //TODO:
-        return  Response.ok().build();
+    public Response update(@Valid MedioContactoUpdateDto medioContactoUpdateDto){
+        return  medioContactoService.update(medioContactoUpdateDto.toEntity()).map(Response::ok).getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
     }
     @DELETE
     @Path("{id}")
