@@ -48,4 +48,12 @@ public class MedioContactoController {
     public Response read(@PathParam("id") Integer idMedioContacto){
         return  medioContactoService.getById(idMedioContacto).map(Response::ok).getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
     }
+    @GET
+    @Path("/contact/{id}")
+    @APIResponse(responseCode = "200", name = "Success", description = "Contact medium deleted successfully")
+    @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
+    @APIResponse(responseCode = "404", name = "Not found", description = "Contact medium not found")
+    public Response readAllByIdContact(@PathParam("id") Integer idContacto){
+        return  medioContactoService.getAllByIdContact(idContacto).map(Response::ok).getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
+    }
 }

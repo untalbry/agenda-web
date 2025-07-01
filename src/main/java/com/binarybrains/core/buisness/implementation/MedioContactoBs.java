@@ -10,6 +10,8 @@ import io.vavr.control.Either;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.util.List;
+
 @ApplicationScoped
 public class MedioContactoBs implements MedioContactoService {
     private final MedioContactoRepository medioContactoRepository;
@@ -70,6 +72,19 @@ public class MedioContactoBs implements MedioContactoService {
         }else{
             var medioContactoUpdated = medioContactoRepository.update(medioContacto);
             result = medioContactoUpdated.<Either<ErrorCode, MedioContacto>>map(Either::right).orElseGet(() -> Either.left(ErrorCode.RN006));
+        }
+        return result;
+    }
+
+    @Override
+    public Either<ErrorCode, List<MedioContacto>> getAllByIdContact(Integer id) {
+        Either<ErrorCode, List<MedioContacto>> result;
+        var contactoExits = contactoRepository.getContactById(id);
+        if(contactoExits.isEmpty()){
+            result = Either.left(ErrorCode.RN004);
+        }else{
+            var mediums = medioContactoRepository.findAllByIdContact(id);
+            result = mediums.<Either<ErrorCode, List<MedioContacto>>>map(Either::right).orElseGet(() -> Either.left(ErrorCode.RN006));
         }
         return result;
     }
