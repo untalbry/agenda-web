@@ -8,6 +8,8 @@ import io.vavr.control.Either;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.util.List;
+
 @ApplicationScoped
 public class MedioContactoBs implements MedioContactoService {
     MedioContactoRepository medioContactoRepository;
@@ -26,6 +28,14 @@ public class MedioContactoBs implements MedioContactoService {
                     .map(medioContactoRegister -> Either.<ErrorCode, MedioContacto>right(medioContactoRegister))
                     .orElseGet(() -> Either.left(ErrorCode.RN001));
         }
+        return result;
+    }
+
+    @Override
+    public Either<ErrorCode, List<MedioContacto>> readMedioContactoByName(String name) {
+        Either<ErrorCode, List<MedioContacto>> result;
+        var existsMedioContacto = medioContactoRepository.getMedioContactoByName(name);
+        result = existsMedioContacto.<Either<ErrorCode, List<MedioContacto>>>map(Either::right).orElseGet(() -> Either.left(ErrorCode.RN004));
         return result;
     }
 }
