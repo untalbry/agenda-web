@@ -49,7 +49,7 @@ public class ContactoController {
         return contactoService.deleteContactById(idContact).map(Response::ok).getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
     }
     @GET
-    @Path("/{idUser}")
+    @Path("/user/{idUser}")
     @APIResponse(responseCode = "200", name = "Success", description = "Request successful")
     @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
     @APIResponse(responseCode = "404", name = "Not found", description = "User not found")

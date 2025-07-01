@@ -1,5 +1,6 @@
 package com.binarybrains.external.rest.dto;
 
+import com.binarybrains.core.entity.MedioContacto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,4 +27,12 @@ public class MedioContactoDto {
     @Size(max = 255, message = "The value cannot exceed 255 characters.")
     @Schema(description = "The actual value of the contact medium (e.g., email address, phone number).")
     private String value;
+
+    public MedioContacto toEntity(){
+        return MedioContacto.builder()
+                .idContacto(contactId)
+                .idTipo(typeContactId)
+                .valor(value)
+                .build();
+    }
 }

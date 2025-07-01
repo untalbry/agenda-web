@@ -1,18 +1,43 @@
 package com.binarybrains.external.rest.controller;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import com.binarybrains.core.buisness.input.MedioContactoService;
+import com.binarybrains.external.rest.dto.MedioContactoDto;
+import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 @Path("/medio-contacto")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class MedioContactoController {
+    private final MedioContactoService medioContactoService;
+    @Inject
+    public MedioContactoController(MedioContactoService medioContactoService){
+        this.medioContactoService = medioContactoService;
+    }
     @POST
-    public Response create(){
+    @APIResponse(responseCode = "200", name = "Success", description = "Contact medium updated successfully")
+    @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
+    public Response create(@Valid MedioContactoDto medioContactoDto){
+        return  medioContactoService.save(medioContactoDto.toEntity()).map(Response::ok).getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
+    }
+    @PATCH
+    @APIResponse(responseCode = "200", name = "Success", description = "Contact medium updated successfully")
+    @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
+    @APIResponse(responseCode = "404", name = "Not found", description = "Contact medium not found")
+    public Response update(@Valid MedioContactoDto medioContactoDto){
+        //TODO:
+        return  Response.ok().build();
+    }
+    @DELETE
+    @Path("{id}")
+    @APIResponse(responseCode = "200", name = "Success", description = "Contact medium deleted successfully")
+    @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
+    @APIResponse(responseCode = "404", name = "Not found", description = "Contact medium not found")
+    public Response delete(@PathParam("id") Integer idMedioContacto){
         //TODO:
         return  Response.ok().build();
     }

@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
-
 public class ContactoDao implements ContactoRepository {
     @PersistenceContext
     EntityManager entityManager;

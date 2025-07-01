@@ -1,6 +1,6 @@
 package com.binarybrains.external.jpa.entity;
 
-import com.binarybrains.core.entity.TipoMedioContacto;
+import com.binarybrains.core.entity.MedioContacto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,34 +10,34 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "cac01_tipo_medio_contacto")
+@Table(name = "tac03_medio_contacto")
 public class MedioContactoJpa {
     @Id
-    @SequenceGenerator(name = "cac01_tipo_medio_contacto_id_tipo_seq", sequenceName = "cac01_tipo_medio_contacto_id_tipo_seq", allocationSize = 1)
-    @GeneratedValue(generator = "cac01_tipo_medio_contacto_id_tipo_seq", strategy = GenerationType.SEQUENCE)
-    @Column(name = "id_tipo")
+    @SequenceGenerator(name = "tac03_medio_contacto_id_medio_contacto_seq", sequenceName = "tac03_medio_contacto_id_medio_contacto_seq", allocationSize = 1)
+    @GeneratedValue(generator = "tac03_medio_contacto_id_medio_contacto_seq", strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_medio_contacto")
     private Integer id;
-    @Column(name = "tx_nombre")
-    private String name;
-    @Column(name = "tx_descripcion")
-    private String description;
-    @Column(name = "st_activo")
-    private Boolean active;
+    @Column(name = "id_contacto")
+    private Integer idContacto;
+    @Column(name = "id_tipo")
+    private Integer idTipo;
+    @Column(name = "valor")
+    private String valor;
 
-    public TipoMedioContacto toEntity(){
-        return TipoMedioContacto.builder()
+    public MedioContacto toEntity(){
+        return MedioContacto.builder()
                 .id(id)
-                .name(name)
-                .description(description)
-                .active(active)
+                .idContacto(idContacto)
+                .idTipo(idTipo)
+                .valor(valor)
                 .build();
     }
-    public static MedioContactoJpa fromEntity(TipoMedioContacto tipoMedioContacto){
+    public static MedioContactoJpa fromEntity(MedioContacto medio){
         return MedioContactoJpa.builder()
-                .id(tipoMedioContacto.getId())
-                .name(tipoMedioContacto.getName())
-                .description(tipoMedioContacto.getDescription())
-                .active(tipoMedioContacto.getActive())
+                .id(medio.getId())
+                .idContacto(medio.getIdContacto())
+                .idTipo(medio.getIdTipo())
+                .valor(medio.getValor())
                 .build();
     }
 }

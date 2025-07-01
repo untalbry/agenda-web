@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface TipoMedioContactoRepository {
     Optional<TipoMedioContacto> create(TipoMedioContacto tipoMedioContacto);
     Optional<List<TipoMedioContacto>> getMedioContactoByName(String name);
+    Optional<TipoMedioContacto> findById(Integer idTipo);
+
 }

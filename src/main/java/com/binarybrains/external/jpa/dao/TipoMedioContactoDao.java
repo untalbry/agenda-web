@@ -2,8 +2,8 @@ package com.binarybrains.external.jpa.dao;
 
 import com.binarybrains.core.buisness.output.TipoMedioContactoRepository;
 import com.binarybrains.core.entity.TipoMedioContacto;
-import com.binarybrains.external.jpa.entity.MedioContactoJpa;
-import com.binarybrains.external.jpa.repository.MedioContactoJpaRepository;
+import com.binarybrains.external.jpa.entity.TipoMedioContactoJpa;
+import com.binarybrains.external.jpa.repository.TipoMedioContactoJpaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -17,16 +17,16 @@ import java.util.Optional;
 public class TipoMedioContactoDao implements TipoMedioContactoRepository {
     @PersistenceContext
     EntityManager entityManager;
-    private final MedioContactoJpaRepository medioContactoJpaRepository;
+    private final TipoMedioContactoJpaRepository tipoMedioContactoJpaRepository;
 
     private static String QUERY_GET_MEDIO_CONTACTO_BY_NAME = "SELECT * FROM cac01_tipo_medio_contacto WHERE tx_nombre=:name";
     @Inject
-    public TipoMedioContactoDao(MedioContactoJpaRepository medioContactoJpaRepository){
-        this.medioContactoJpaRepository = medioContactoJpaRepository;
+    public TipoMedioContactoDao(TipoMedioContactoJpaRepository tipoMedioContactoJpaRepository){
+        this.tipoMedioContactoJpaRepository = tipoMedioContactoJpaRepository;
     }
     @Override
     public Optional<TipoMedioContacto> create(TipoMedioContacto tipoMedioContacto) {
-        return Optional.of(medioContactoJpaRepository.save(MedioContactoJpa.fromEntity(tipoMedioContacto)).toEntity());
+        return Optional.of(tipoMedioContactoJpaRepository.save(TipoMedioContactoJpa.fromEntity(tipoMedioContacto)).toEntity());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class TipoMedioContactoDao implements TipoMedioContactoRepository {
                 .stream()
                 .map(row -> {
                     Object[] r = (Object[]) row;
-                    return MedioContactoJpa.builder()
+                    return TipoMedioContactoJpa.builder()
                             .id((Integer) r[0])
                             .name((String) r[1])
                             .description((String) r[2])
@@ -49,5 +49,10 @@ public class TipoMedioContactoDao implements TipoMedioContactoRepository {
                 })
                 .toList();
         return Optional.of(tipoMedioContactos);
+    }
+
+    @Override
+    public Optional<TipoMedioContacto> findById(Integer idTipo) {
+        return tipoMedioContactoJpaRepository.findById(idTipo).map(TipoMedioContactoJpa::toEntity);
     }
 }
