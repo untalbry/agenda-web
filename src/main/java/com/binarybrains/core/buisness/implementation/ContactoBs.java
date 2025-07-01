@@ -49,4 +49,19 @@ public class ContactoBs implements ContactoService {
         result = contactExists.<Either<ErrorCode, Contacto>>map(contactos -> Either.right(contactos.getFirst())).orElseGet(() -> Either.left(ErrorCode.RN004));
         return result;
     }
+
+    @Override
+    public Either<ErrorCode, Contacto> update(Contacto contacto) {
+        Either<ErrorCode, Contacto> result;
+        var contactExists = contactoRepository.getContactByUserId(contacto.getIdUser());
+        if(contactExists.isEmpty() || contactExists.get().isEmpty()){
+            result = Either.left(ErrorCode.RN004);
+        }else{
+            Contacto contactUpdate = contactExists.get().getFirst();
+            contactUpdate.setName(contacto.getNickname());
+            var contactUpdated = contactoRepository.update(contactUpdate);
+            result = contactUpdated.<Either<ErrorCode, Contacto>>map(Either::right).orElseGet(() -> Either.left(ErrorCode.RN006));
+        }
+        return result;
+    }
 }

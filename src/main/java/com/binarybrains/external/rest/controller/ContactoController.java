@@ -33,5 +33,11 @@ public class ContactoController {
     public Response read(@PathParam("nickname") String nickname){
         return contactoService.getByNickname(nickname).map(Response::ok).getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
     }
-
+    @PATCH
+    @APIResponse(responseCode = "200", name = "Success", description = "Contact updated successfully")
+    @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
+    @APIResponse(responseCode = "404", name = "Not found", description = "Contact not found")
+    public Response update(@Valid ContactoDto contactoDto){
+        return contactoService.update(contactoDto.toEntity()).map(Response::ok).getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
+    }
 }

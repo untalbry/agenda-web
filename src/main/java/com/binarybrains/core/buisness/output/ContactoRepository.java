@@ -7,5 +7,7 @@ import java.util.Optional;
 public interface ContactoRepository {
     Optional<Contacto> create(Contacto contacto);
     Optional<List<Contacto>> getContactByNickname(String nickname);
+    Optional<Contacto> update(Contacto contacto);
+    Optional<List<Contacto>> getContactByUserId(Integer id);
 
 }

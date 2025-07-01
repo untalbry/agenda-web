@@ -20,7 +20,7 @@ public class ContactoDao implements ContactoRepository {
     @PersistenceContext
     EntityManager entityManager;
     private static final  String QUERY_GET_CONTACT_BY_NICKNAME = "SELECT * FROM tac02_contacto WHERE tx_apodo=:nickname";
-
+    private static final String QUERY_GET_CONTACT_BY_ID_USER = "SELECT * FROM tac02_contacto WHERE id_usuario=:idUsuario";
     private final ContactoJpaRepository contactoJpaRepository;
     @Inject
     public ContactoDao(ContactoJpaRepository contactoJpaRepository){
@@ -54,6 +54,21 @@ public class ContactoDao implements ContactoRepository {
                             .toEntity();
                 })
                 .toList();
+        return Optional.of(contacts);
+    }
+
+    @Override
+    public Optional<Contacto> update(Contacto contacto) {
+        return Optional.of(contactoJpaRepository.saveAndFlush(ContactoJpa.fromEntity(contacto)).toEntity());
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Optional<List<Contacto>> getContactByUserId(Integer id) {
+        List<Contacto> contacts = entityManager.createNativeQuery(QUERY_GET_CONTACT_BY_ID_USER, ContactoJpa.class)
+                .setParameter("idUsuario", id)
+                .getResultList()
+                .stream().map(contactoJpa -> ((ContactoJpa) contactoJpa).toEntity()).toList();
         return Optional.of(contacts);
     }
 }

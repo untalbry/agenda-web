@@ -8,5 +8,6 @@ import io.vavr.control.Either;
 public interface ContactoService {
     Either<ErrorCode, Contacto> save(Contacto contacto);
     Either<ErrorCode, Contacto> getByNickname(String nickname);
+    Either<ErrorCode, Contacto> update(Contacto contacto);
 
 }
