@@ -45,10 +45,11 @@ public class ContactoDao implements ContactoRepository {
                     Object[] r = (Object[]) row;
                     return ContactoJpa.builder()
                             .id((Integer) r[0])
-                            .name((String) r[1])
-                            .lastName((String) r[2])
-                            .secondLastName((String) r[3])
-                            .nickname((String) r[4])
+                            .idUser((Integer) r[1])
+                            .name((String) r[2])
+                            .lastName((String) r[3])
+                            .secondLastName((String) r[4])
+                            .nickname((String) r[5])
                             .build()
                             .toEntity();
                 })

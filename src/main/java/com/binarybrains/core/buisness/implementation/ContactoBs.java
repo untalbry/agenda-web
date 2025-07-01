@@ -41,4 +41,12 @@ public class ContactoBs implements ContactoService {
         }
         return result;
     }
+
+    @Override
+    public Either<ErrorCode, Contacto> getByNickname(String nickname) {
+        Either<ErrorCode, Contacto> result;
+        var contactExists = contactoRepository.getContactByNickname(nickname);
+        result = contactExists.<Either<ErrorCode, Contacto>>map(contactos -> Either.right(contactos.getFirst())).orElseGet(() -> Either.left(ErrorCode.RN004));
+        return result;
+    }
 }

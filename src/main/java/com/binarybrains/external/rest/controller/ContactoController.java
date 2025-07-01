@@ -20,17 +20,18 @@ public class ContactoController {
     @APIResponse(responseCode = "200", name = "Success", description = "Contact registered successfully")
     @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
     @APIResponse(responseCode = "404", name = "Not found", description = "User not found")
-    public Response register(@Valid ContactoDto contactoDto){
+    public Response create(@Valid ContactoDto contactoDto){
         return contactoService.save(contactoDto.toEntity())
                 .map(Response::ok)
                 .getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
     }
     @GET
+    @Path("/{nickname}")
     @APIResponse(responseCode = "200", name = "Success", description = "Request successful")
     @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
     @APIResponse(responseCode = "404", name = "Not found", description = "User not found")
-    public Response read(){
-        return  Response.ok().build();
+    public Response read(@PathParam("nickname") String nickname){
+        return contactoService.getByNickname(nickname).map(Response::ok).getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
     }
 
 }
