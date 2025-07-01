@@ -12,7 +12,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @NoArgsConstructor
 @Getter
 @Setter
-@Schema(name = "ContactoDto", description = "DTO for contact information.")
+@Schema(name = "Contact", description = "DTO for contact information.")
 public class ContactoDto {
 
     @NotNull(message = "User ID cannot be null.")

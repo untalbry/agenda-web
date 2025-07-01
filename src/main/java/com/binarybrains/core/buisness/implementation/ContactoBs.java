@@ -64,4 +64,17 @@ public class ContactoBs implements ContactoService {
         }
         return result;
     }
+
+    @Override
+    public Either<ErrorCode, Boolean> deleteContactById(Integer id) {
+        Either<ErrorCode, Boolean> result;
+        var contactExists = contactoRepository.getContactById(id);
+        if(contactExists.isEmpty()){
+            result = Either.left(ErrorCode.RN004);
+        }else {
+            contactoRepository.deleteContact(contactExists.get());
+            result = Either.right(true);
+        }
+        return result;
+    }
 }

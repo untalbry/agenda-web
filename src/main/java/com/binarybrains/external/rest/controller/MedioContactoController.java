@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 public class MedioContactoController {
     @POST
-    public Response register(){
+    public Response create(){
         //TODO:
         return  Response.ok().build();
     }

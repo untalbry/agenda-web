@@ -29,13 +29,12 @@ public class TipoMedioContactoController {
     @POST
     @APIResponse(responseCode = "200", name = "Success", description = "Type of contact registered successfully")
     @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
-    public Response register(@Valid TipoMedioContactoDto tipoMedioContactoDto){
+    public Response create(@Valid TipoMedioContactoDto tipoMedioContactoDto){
         return tipoMedioContactoService.save(tipoMedioContactoDto.toEntity())
                 .map(Response::ok)
                 .getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
     }
     @PUT
-    @Path("/{id}")
     public Response edit(){
         //TODO:
         return Response.ok().build();

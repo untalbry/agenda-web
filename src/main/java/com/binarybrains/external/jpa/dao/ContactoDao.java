@@ -71,4 +71,15 @@ public class ContactoDao implements ContactoRepository {
                 .stream().map(contactoJpa -> ((ContactoJpa) contactoJpa).toEntity()).toList();
         return Optional.of(contacts);
     }
+
+    @Override
+    public Optional<Contacto> getContactById(Integer id) {
+        return contactoJpaRepository.findById(id)
+                .map(ContactoJpa::toEntity);
+    }
+
+    @Override
+    public void deleteContact(Contacto contacto) {
+        contactoJpaRepository.delete(ContactoJpa.fromEntity(contacto));
+    }
 }

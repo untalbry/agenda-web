@@ -11,7 +11,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @NoArgsConstructor
 @Getter
 @Setter
-@Schema(name = "MedioContactoDto", description = "DTO for contact medium information.")
+@Schema(name = "Contact medium", description = "DTO for contact medium information.")
 public class MedioContactoDto {
 
     @NotNull(message = "Contact ID cannot be null.")
