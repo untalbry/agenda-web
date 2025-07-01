@@ -1,6 +1,6 @@
 package com.binarybrains.external.jpa.entity;
 
-import com.binarybrains.core.entity.MedioContacto;
+import com.binarybrains.core.entity.TipoMedioContacto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,20 +24,20 @@ public class MedioContactoJpa {
     @Column(name = "st_activo")
     private Boolean active;
 
-    public MedioContacto toEntity(){
-        return MedioContacto.builder()
+    public TipoMedioContacto toEntity(){
+        return TipoMedioContacto.builder()
                 .id(id)
                 .name(name)
                 .description(description)
                 .active(active)
                 .build();
     }
-    public static MedioContactoJpa fromEntity(MedioContacto medioContacto){
+    public static MedioContactoJpa fromEntity(TipoMedioContacto tipoMedioContacto){
         return MedioContactoJpa.builder()
-                .id(medioContacto.getId())
-                .name(medioContacto.getName())
-                .description(medioContacto.getDescription())
-                .active(medioContacto.getActive())
+                .id(tipoMedioContacto.getId())
+                .name(tipoMedioContacto.getName())
+                .description(tipoMedioContacto.getDescription())
+                .active(tipoMedioContacto.getActive())
                 .build();
     }
 }

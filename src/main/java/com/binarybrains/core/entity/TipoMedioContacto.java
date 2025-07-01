@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class MedioContacto {
+public class TipoMedioContacto {
     private Integer id;
     private String name;
     private String description;

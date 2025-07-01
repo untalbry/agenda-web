@@ -1,8 +1,7 @@
 package com.binarybrains.external.jpa.dao;
 
-import com.binarybrains.core.buisness.input.MedioContactoService;
-import com.binarybrains.core.buisness.output.MedioContactoRepository;
-import com.binarybrains.core.entity.MedioContacto;
+import com.binarybrains.core.buisness.output.TipoMedioContactoRepository;
+import com.binarybrains.core.entity.TipoMedioContacto;
 import com.binarybrains.external.jpa.entity.MedioContactoJpa;
 import com.binarybrains.external.jpa.repository.MedioContactoJpaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -15,25 +14,25 @@ import java.util.Optional;
 
 @ApplicationScoped
 
-public class MedioContactoDao implements MedioContactoRepository {
+public class TipoMedioContactoDao implements TipoMedioContactoRepository {
     @PersistenceContext
     EntityManager entityManager;
     private final MedioContactoJpaRepository medioContactoJpaRepository;
 
     private static String QUERY_GET_MEDIO_CONTACTO_BY_NAME = "SELECT * FROM cac01_tipo_medio_contacto WHERE tx_nombre=:name";
     @Inject
-    public MedioContactoDao(MedioContactoJpaRepository medioContactoJpaRepository){
+    public TipoMedioContactoDao(MedioContactoJpaRepository medioContactoJpaRepository){
         this.medioContactoJpaRepository = medioContactoJpaRepository;
     }
     @Override
-    public Optional<MedioContacto> create(MedioContacto medioContacto) {
-        return Optional.of(medioContactoJpaRepository.save(MedioContactoJpa.fromEntity(medioContacto)).toEntity());
+    public Optional<TipoMedioContacto> create(TipoMedioContacto tipoMedioContacto) {
+        return Optional.of(medioContactoJpaRepository.save(MedioContactoJpa.fromEntity(tipoMedioContacto)).toEntity());
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Optional<List<MedioContacto>> getMedioContactoByName(String name) {
-        List<MedioContacto> medioContactos = entityManager
+    public Optional<List<TipoMedioContacto>> getMedioContactoByName(String name) {
+        List<TipoMedioContacto> tipoMedioContactos = entityManager
                 .createNativeQuery(QUERY_GET_MEDIO_CONTACTO_BY_NAME)
                 .setParameter("name", name)
                 .getResultList()
@@ -49,6 +48,6 @@ public class MedioContactoDao implements MedioContactoRepository {
                             .toEntity();
                 })
                 .toList();
-        return Optional.of(medioContactos);
+        return Optional.of(tipoMedioContactos);
     }
 }
