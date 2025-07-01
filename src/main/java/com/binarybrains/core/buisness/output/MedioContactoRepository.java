@@ -6,5 +6,7 @@ import java.util.Optional;
 
 public interface MedioContactoRepository {
     Optional<MedioContacto> create(MedioContacto medioContacto);
+    Optional<MedioContacto> findById(Integer id);
+    void remove(MedioContacto medioContacto);
 
 }

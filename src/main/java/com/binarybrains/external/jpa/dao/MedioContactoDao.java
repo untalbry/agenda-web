@@ -29,4 +29,14 @@ public class MedioContactoDao implements MedioContactoRepository {
 
     }
 
+    @Override
+    public Optional<MedioContacto> findById(Integer id) {
+        return medioContactoJpaRepository.findById(id).map(MedioContactoJpa::toEntity);
+    }
+
+    @Override
+    public void remove(MedioContacto medioContacto) {
+        medioContactoJpaRepository.delete(MedioContactoJpa.fromEntity(medioContacto));
+    }
+
 }

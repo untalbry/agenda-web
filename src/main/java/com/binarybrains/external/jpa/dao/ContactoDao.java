@@ -76,7 +76,7 @@ public class ContactoDao implements ContactoRepository {
     }
 
     @Override
-    public void deleteContact(Contacto contacto) {
+    public void delete(Contacto contacto) {
         contactoJpaRepository.delete(ContactoJpa.fromEntity(contacto));
     }
 }

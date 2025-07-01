@@ -12,6 +12,6 @@ public interface ContactoRepository {
     Optional<List<Contacto>> getContactByUserId(Integer id);
 
     Optional<Contacto> getContactById(Integer id);
-    void deleteContact(Contacto contacto);
+    void delete(Contacto contacto);
 
 }

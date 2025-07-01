@@ -60,7 +60,7 @@ public class ContactoBs implements ContactoService {
         if(contactExists.isEmpty()){
             result = Either.left(ErrorCode.RN004);
         }else {
-            contactoRepository.deleteContact(contactExists.get());
+            contactoRepository.delete(contactExists.get());
             result = Either.right(true);
         }
         return result;

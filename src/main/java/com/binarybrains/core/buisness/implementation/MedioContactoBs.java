@@ -39,4 +39,25 @@ public class MedioContactoBs implements MedioContactoService {
         }
         return result;
     }
+
+    @Override
+    public Either<ErrorCode, MedioContacto> getById(Integer id) {
+        Either<ErrorCode, MedioContacto> result;
+        var medioContactoExist = medioContactoRepository.findById(id);
+        result = medioContactoExist.<Either<ErrorCode, MedioContacto>>map(Either::right).orElseGet(() -> Either.left(ErrorCode.RN004));
+        return result;
+    }
+
+    @Override
+    public Either<ErrorCode, Boolean> delete(Integer id) {
+        Either<ErrorCode, Boolean> result;
+        var contactoExists = medioContactoRepository.findById(id);
+        if(contactoExists.isEmpty()){
+            result = Either.left(ErrorCode.RN004);
+        }else{
+            medioContactoRepository.remove(contactoExists.get());
+            result = Either.right(true);
+        }
+        return result;
+    }
 }
