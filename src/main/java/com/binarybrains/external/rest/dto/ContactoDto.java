@@ -3,6 +3,7 @@ package com.binarybrains.external.rest.dto;
 import com.binarybrains.core.entity.Contacto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
@@ -11,19 +12,22 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @NoArgsConstructor
 @Getter
 @Setter
-@Schema(name = "Contacto", description = "Contacto information to register")
+@Schema(name = "ContactoDto", description = "DTO for contact information.")
 public class ContactoDto {
-    @NotNull(message = "RN001")
-    @Schema(description = "User id")
+
+    @NotNull(message = "User ID cannot be null.")
+    @Schema(description = "Identifier of the user associated with this contact.")
     private Integer idUser;
-    @NotEmpty(message = "RN001")
-    @Schema(description = "Contact nickname")
+
+    @NotEmpty(message = "Nickname cannot be empty.")
+    @Size(max = 100, message = "Nickname cannot exceed 100 characters.")
+    @Schema(description = "Nickname or alias for the contact.")
     private String nickname;
+
     public Contacto toEntity(){
         return Contacto.builder()
                 .idUser(idUser)
                 .nickname(nickname)
                 .build();
     }
-
 }

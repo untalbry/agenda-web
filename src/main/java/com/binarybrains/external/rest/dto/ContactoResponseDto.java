@@ -9,11 +9,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 @NoArgsConstructor
 @Getter
 @Setter
-@Schema(name = "Contact", description = "Contact information for reading")
+@Schema(name = "Contact response", description = "Contact information for reading")
 public class ContactoResponseDto {
     @Schema(description = "Contact id")
     private Integer id;
-    @Schema(description = "Contact id")
+    @Schema(description = "User id")
     private Integer idUser;
     @Schema(description = "Contact name")
     private String name;

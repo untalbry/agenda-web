@@ -25,7 +25,7 @@ public class TipoMedioContactoBs implements TipoMedioContactoService {
             result = Either.left(ErrorCode.RN004);
         }else{
             result = tipoMedioContactoRepository.create(tipoMedioContacto)
-                    .map(medioContactoRegister -> Either.<ErrorCode, TipoMedioContacto>right(medioContactoRegister))
+                    .map(Either::<ErrorCode, TipoMedioContacto>right)
                     .orElseGet(() -> Either.left(ErrorCode.RN001));
         }
         return result;
