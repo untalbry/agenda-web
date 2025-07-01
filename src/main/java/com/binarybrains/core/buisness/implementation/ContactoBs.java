@@ -58,7 +58,7 @@ public class ContactoBs implements ContactoService {
             result = Either.left(ErrorCode.RN004);
         }else{
             Contacto contactUpdate = contactExists.get().getFirst();
-            contactUpdate.setName(contacto.getNickname());
+            contactUpdate.setNickname(contacto.getNickname());
             var contactUpdated = contactoRepository.update(contactUpdate);
             result = contactUpdated.<Either<ErrorCode, Contacto>>map(Either::right).orElseGet(() -> Either.left(ErrorCode.RN006));
         }
