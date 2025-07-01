@@ -26,7 +26,7 @@ public class ContactoController {
                 .getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
     }
     @GET
-    @Path("/{nickname}")
+    @Path("/nickname/{nickname}")
     @APIResponse(responseCode = "200", name = "Success", description = "Request successful")
     @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
     @APIResponse(responseCode = "404", name = "Not found", description = "User not found")
@@ -47,5 +47,13 @@ public class ContactoController {
     @APIResponse(responseCode = "404", name = "Not found", description = "Contact not found")
     public Response delete(@PathParam("id") Integer idContact){
         return contactoService.deleteContactById(idContact).map(Response::ok).getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
+    }
+    @GET
+    @Path("/{idUser}")
+    @APIResponse(responseCode = "200", name = "Success", description = "Request successful")
+    @APIResponse(responseCode = "400", name = "Bad request", description = "Error in the request")
+    @APIResponse(responseCode = "404", name = "Not found", description = "User not found")
+    public Response readByUserId(@PathParam("idUser") Integer idUser){
+        return contactoService.getAllByIdUser(idUser).map(Response::ok).getOrElseGet(errorCode -> Response.status(400).entity(errorCode)).build();
     }
 }

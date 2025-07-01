@@ -2,9 +2,7 @@ package com.binarybrains.external.jpa.dao;
 
 import com.binarybrains.core.buisness.output.ContactoRepository;
 import com.binarybrains.core.entity.Contacto;
-import com.binarybrains.core.entity.User;
 import com.binarybrains.external.jpa.entity.ContactoJpa;
-import com.binarybrains.external.jpa.entity.UserJpa;
 import com.binarybrains.external.jpa.repository.ContactoJpaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

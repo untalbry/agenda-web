@@ -2,22 +2,20 @@ package com.binarybrains.core.buisness.implementation;
 
 import com.binarybrains.core.buisness.input.ContactoService;
 import com.binarybrains.core.buisness.output.ContactoRepository;
-import com.binarybrains.core.buisness.output.UserRepository;
 import com.binarybrains.core.entity.Contacto;
-import com.binarybrains.core.entity.User;
 import com.binarybrains.utils.ErrorCode;
 import io.vavr.control.Either;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.util.List;
+
 @ApplicationScoped
 public class ContactoBs implements ContactoService {
     private final ContactoRepository contactoRepository;
-    private final UserRepository userRepository;
     @Inject
-    public ContactoBs(ContactoRepository contactoRepository, UserRepository userRepository){
+    public ContactoBs(ContactoRepository contactoRepository){
         this.contactoRepository = contactoRepository;
-        this.userRepository = userRepository;
     }
     @Override
     public Either<ErrorCode, Contacto> save(Contacto contacto) {
@@ -65,6 +63,14 @@ public class ContactoBs implements ContactoService {
             contactoRepository.deleteContact(contactExists.get());
             result = Either.right(true);
         }
+        return result;
+    }
+
+    @Override
+    public Either<ErrorCode, List<Contacto>> getAllByIdUser(Integer idUser) {
+        Either<ErrorCode, List<Contacto>> result;
+        var contacts = contactoRepository.getContactByUserId(idUser);
+        result = contacts.<Either<ErrorCode, List<Contacto>>>map(Either::right).orElseGet(() -> Either.left(ErrorCode.RN004));
         return result;
     }
 }
